@@ -13,13 +13,23 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  Password: '$(Pwd)'
-  Webapp: '$(App)'
+  # Password: '$(Pwd)'
+  # Webapp: '$(App)'
+
+resources:
+- repo: WebApplication1
+  type: pipeline
+  name: velli.WebApplication1
+  connection: 'github.com_v3lli'
+  parameters:
+    solution: '**/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+    Webapp: $(Password)
+    Password: $(WebApp)
 
 steps:
-- task: AzurePipelines@5
+- task: Pipeline@2
   inputs:
-    targetPipeline: 'v3lli.WebApplication1'
-    targetProject: '$(System.TeamProject)'
-    pipelineVariables: '-Password $(Password) -Webapp $(Webapp) -solution $(solution) -buildPlatform $(buildPlatform) -buildConfiguration $(buildConfiguration)'
-    continueOnError: true
+    target: pipelinea
+    parameters: '-solution $(solution) -buildPlatform $(buildPlatform) -buildConfiguration $(buildConfiguration) -Webapp $(webappName) -Password $(webappPassword)'
