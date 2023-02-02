@@ -7,11 +7,19 @@ trigger:
 - master
 
 pool:
-  vmImage:  windows-latest
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  Password: '$(Pwd)'
+  Webapp: '$(App)'
 
 steps:
-
-task: Pipeline@2
-inputs:
-target: 'velli.WebApplication1'
-arguments: '-Password $(Password) -Webapp $(Webapp)'
+- task: AzurePipelines@5
+  inputs:
+    targetPipeline: 'v3lli.WebApplication1'
+    targetProject: '$(System.TeamProject)'
+    pipelineVariables: '-Password $(Password) -Webapp $(Webapp) -solution $(solution) -buildPlatform $(buildPlatform) -buildConfiguration $(buildConfiguration)'
+    continueOnError: true
