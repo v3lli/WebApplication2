@@ -17,10 +17,10 @@ variables:
   # Webapp: '$(App)'
 
 resources:
-- repo: WebApplication1
+- repo: github.com_v3lli
   type: pipeline
   name: velli.WebApplication1
-  connection: 'github.com_v3lli'
+  connection: github.com_v3lli
   parameters:
     solution: '**/*.sln'
     buildPlatform: 'Any CPU'
