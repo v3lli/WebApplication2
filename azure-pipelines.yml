@@ -10,26 +10,17 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  # Password: '$(Pwd)'
-  # Webapp: '$(App)'
+- group: webapp1
 
 resources:
-- repo: github.com_v3lli
-  type: pipeline
-  name: velli.WebApplication1
-  connection: github.com_v3lli
-  parameters:
-    solution: '**/*.sln'
-    buildPlatform: 'Any CPU'
-    buildConfiguration: 'Release'
-    Webapp: $(Password)
-    Password: $(WebApp)
+  repositories:
+    - repository: WebApplication1
+      type: github
+      name: v3lli/WebApplication1
 
-steps:
-- task: Pipeline@2
-  inputs:
-    target: pipelinea
-    parameters: '-solution $(solution) -buildPlatform $(buildPlatform) -buildConfiguration $(buildConfiguration) -Webapp $(webappName) -Password $(webappPassword)'
+jobs:
+- template: azure-pipelines.yml@WebApplication1  # Template reference
+  parameters:
+      iispath: $(diapath)
+      pspwd: $(Password)
+      appname: $(Webapp)
