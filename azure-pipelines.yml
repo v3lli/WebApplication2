@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  # Password: '$(Pwd)'
+  # Webapp: '$(App)'
+
+resources:
+- repo: github.com_v3lli
+  type: pipeline
+  name: velli.WebApplication1
+  connection: github.com_v3lli
+  parameters:
+    solution: '**/*.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+    Webapp: $(Password)
+    Password: $(WebApp)
+
+steps:
+- task: Pipeline@2
+  inputs:
+    target: pipelinea
+    parameters: '-solution $(solution) -buildPlatform $(buildPlatform) -buildConfiguration $(buildConfiguration) -Webapp $(webappName) -Password $(webappPassword)'
