@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-- group: webapp1
+- group: webapp2
 
 resources:
   repositories:
