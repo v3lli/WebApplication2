@@ -19,8 +19,8 @@ resources:
       name: v3lli/WebApplication1
       endpoint: github.com_v3lli
 
-jobs:
-- template: azure-pipelines.yml@WebApplication1  # Template reference
+extends:
+  template: azure-pipelines.yml@WebApplication1
   parameters:
       iispath: $(diapath)
       pspwd: $(Password)
